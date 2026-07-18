@@ -571,9 +571,9 @@ const GRADUATES = [
   },
   {
     id: "grad-2",
-    name: "Aynur Əliyeva",
-    score: "Bal: 680",
-    photo: null
+    name: "Nurxan Nurxanovic",
+    score: "fokus mokus",
+    photo: "images/nurxan.jpg"
   },
   {
     id: "grad-3",
