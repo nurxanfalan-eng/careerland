@@ -565,9 +565,9 @@ const NEWS = [
 const GRADUATES = [
   {
     id: "grad-1",
-    name: "Elmira Xəlilova",
-    score: "MİQ: 85.5",
-    photo: "images/teacher-elmira.jpg"
+    name: "Nuray Nəbiyeva",
+    score: "DİM BALINA HÖRMƏT ELƏMİR",
+    photo: "images/nuray.jpg"
   },
   {
     id: "grad-2",
