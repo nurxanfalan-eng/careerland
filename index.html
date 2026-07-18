@@ -42,8 +42,11 @@
       <li><a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a></li>
       <li><a href="#muellimler"  data-page="muellimler">Müəllimlər</a></li>
       <li><a href="#netiveler"   data-page="netiveler">Nəticələr</a></li>
+      <li><a href="#qalerya"     data-page="qalerya">Qalerya</a></li>
+      <li><a href="#vakansiyalar" data-page="vakansiyalar">Vakansiyalar</a></li>
       <li><a href="#xeberler"    data-page="xeberler">Xəbərlər</a></li>
       <li><a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a></li>
+      <li><a href="#faq"         data-page="faq">FAQ</a></li>
       <li><a href="#elaqe"       data-page="elaqe">Əlaqə</a></li>
     </ul>
 
@@ -58,8 +61,11 @@
     <a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a>
     <a href="#muellimler"  data-page="muellimler">Müəllimlər</a>
     <a href="#netiveler"   data-page="netiveler">Nəticələr</a>
+    <a href="#qalerya"     data-page="qalerya">Qalerya</a>
+    <a href="#vakansiyalar" data-page="vakansiyalar">Vakansiyalar</a>
     <a href="#xeberler"    data-page="xeberler">Xəbərlər</a>
     <a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a>
+    <a href="#faq"         data-page="faq">FAQ</a>
     <a href="#elaqe"       data-page="elaqe">Əlaqə</a>
   </nav>
 </nav>
@@ -203,10 +209,10 @@
   <!-- NEWS PREVIEW -->
   <section class="section" id="home-news-section" aria-label="Son xəbərlər">
     <div class="container">
-      <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+      <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:32px;">
         <div>
           <h2 class="section-title"><i class="fas fa-newspaper"></i> Xəbərlər</h2>
-          <p class="section-subtitle">Ən son yeniliklər</p>
+          <p class="section-subtitle" style="margin-bottom:0;">Ən son yeniliklər</p>
         </div>
         <a href="#xeberler" data-page="xeberler" class="view-all">Bütün xəbərlər <i class="fas fa-arrow-right"></i></a>
       </div>
@@ -224,6 +230,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title"><i class="fas fa-graduation-cap"></i> Hazırlıqlar</h1>
         <p class="section-subtitle">Hazırlıq növünü seçin, müəllimlər ilə tanış olun</p>
       </header>
@@ -245,6 +256,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Müəllimlər</h1>
         <p class="section-subtitle">Peşəkar müəllimlərimizlə tanış olun</p>
       </header>
@@ -269,21 +285,57 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title"><i class="fas fa-trophy"></i> Uğurlu Məzunlarımız</h1>
         <p class="section-subtitle">Uğurlu tələbələrimizin nailiyyətlərini sevinclə paylaşırıq</p>
       </header>
       <div id="graduates-grid" class="graduates-grid"></div>
     </div>
   </section>
+</div>
 
-  <!-- Gallery -->
-  <section class="section section-alt" id="gallery-section">
+
+<!-- ============================================================
+     PAGE: QALERYA (Ayrıca səhifə)
+     ============================================================ -->
+<div id="page-qalerya" class="page">
+  <section class="section section-alt">
     <div class="container">
       <header class="section-header">
-        <h2 class="section-title"><i class="fas fa-images"></i> Qalerya</h2>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
+        <h1 class="section-title"><i class="fas fa-images"></i> Qalerya</h1>
         <p class="section-subtitle">Mərkəzimizin görüntüləri</p>
       </header>
       <div id="gallery-grid" class="gallery-grid"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: VAKANSİYALAR
+     ============================================================ -->
+<div id="page-vakansiyalar" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
+        <h1 class="section-title"><i class="fas fa-briefcase"></i> Vakansiyalar</h1>
+        <p class="section-subtitle">Careerland ailəsinə qoşulun</p>
+      </header>
+      <div id="vacancies-grid" class="vacancies-grid"></div>
     </div>
   </section>
 </div>
@@ -373,6 +425,22 @@
 
 
 <!-- ============================================================
+     PAGE: FAQ (Ayrıca səhifə)
+     ============================================================ -->
+<div id="page-faq" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header" style="text-align:center">
+        <h1 class="section-title" style="justify-content:center"><i class="fas fa-question-circle"></i> Tez-Tez Soruşulan Suallar</h1>
+        <p class="section-subtitle">Sizin suallarınıza cavab tapın</p>
+      </header>
+      <div id="faq-list" class="faq-list"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
      PAGE: ƏLAQƏ
      ============================================================ -->
 <div id="page-elaqe" class="page">
@@ -383,86 +451,58 @@
         <p class="section-subtitle">Bizimlə əlaqə saxlayın</p>
       </header>
 
-      <div class="contact-grid">
-        <div class="contact-info">
-          <!-- WhatsApp -->
-          <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer"
-             class="contact-item" aria-label="WhatsApp ilə əlaqə">
-            <div class="contact-item-icon whatsapp">
-              <i class="fab fa-whatsapp"></i>
-            </div>
-            <div>
-              <div class="contact-item-label">WhatsApp</div>
-              <div class="contact-item-value">+994 55 940 60 18</div>
-            </div>
-            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
-          </a>
+      <div class="contact-info-only">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer"
+           class="contact-item" aria-label="WhatsApp ilə əlaqə">
+          <div class="contact-item-icon whatsapp">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div>
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-value">+994 55 940 60 18</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+        </a>
 
-          <!-- Instagram -->
-          <a href="https://www.instagram.com/careerland/" target="_blank" rel="noopener noreferrer"
-             class="contact-item" aria-label="Instagram hesabımız">
-            <div class="contact-item-icon instagram">
-              <i class="fab fa-instagram"></i>
-            </div>
-            <div>
-              <div class="contact-item-label">Instagram</div>
-              <div class="contact-item-value">@careerland</div>
-            </div>
-            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
-          </a>
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/careerland/" target="_blank" rel="noopener noreferrer"
+           class="contact-item" aria-label="Instagram hesabımız">
+          <div class="contact-item-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <div>
+            <div class="contact-item-label">Instagram</div>
+            <div class="contact-item-value">@careerland</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+        </a>
 
-          <!-- Map -->
-          <a href="https://maps.app.goo.gl/JRdnmuJs9ZrhbVMs5" target="_blank" rel="noopener noreferrer"
-             class="contact-item" aria-label="Xəritədə biz">
-            <div class="contact-item-icon map">
-              <i class="fas fa-map-marker-alt"></i>
-            </div>
-            <div>
-              <div class="contact-item-label">Ünvan</div>
-              <div class="contact-item-value">Xəritədə Bax</div>
-            </div>
-            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
-          </a>
+        <!-- Address -->
+        <a href="https://maps.app.goo.gl/JRdnmuJs9ZrhbVMs5" target="_blank" rel="noopener noreferrer"
+           class="contact-item" aria-label="Xəritədə biz">
+          <div class="contact-item-icon map">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div>
+            <div class="contact-item-label">Ünvan</div>
+            <div class="contact-item-value">Xəritədə Bax</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+        </a>
 
-          <!-- Phone call -->
-          <a href="tel:+994559406018" class="contact-item" aria-label="Zəng et">
-            <div class="contact-item-icon" style="background:var(--accent);color:var(--primary)">
-              <i class="fas fa-phone"></i>
-            </div>
-            <div>
-              <div class="contact-item-label">Telefon</div>
-              <div class="contact-item-value">+994 55 940 60 18</div>
-            </div>
-            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
-          </a>
-        </div>
-
-        <!-- Map embed -->
-        <div class="contact-map">
-          <iframe
-            src="https://maps.google.com/maps?q=Baku,+Azerbaijan&output=embed&z=13"
-            title="Mərkəzin yeri"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-          <a href="https://maps.app.goo.gl/JRdnmuJs9ZrhbVMs5"
-             target="_blank" rel="noopener noreferrer" class="contact-map-btn">
-            <i class="fas fa-directions"></i> Xəritədə Göstər
-          </a>
-        </div>
+        <!-- Phone call -->
+        <a href="tel:+994559406018" class="contact-item" aria-label="Zəng et">
+          <div class="contact-item-icon" style="background:var(--accent);color:var(--primary)">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div>
+            <div class="contact-item-label">Telefon</div>
+            <div class="contact-item-value">+994 55 940 60 18</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+        </a>
       </div>
-    </div>
-  </section>
-
-  <!-- FAQ on contact page -->
-  <section class="section section-alt">
-    <div class="container">
-      <header class="section-header" style="text-align:center">
-        <h2 class="section-title" style="justify-content:center"><i class="fas fa-question-circle"></i> Tez-Tez Soruşulan Suallar</h2>
-        <p class="section-subtitle">Sizin suallarınıza cavab tapın</p>
-      </header>
-      <div id="faq-list" class="faq-list"></div>
     </div>
   </section>
 </div>
@@ -475,6 +515,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header" style="text-align:center;max-width:600px;margin:0 auto 40px">
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title" style="justify-content:center"><i class="fas fa-pencil-alt"></i> İmtahanlar</h1>
         <p class="section-subtitle">Rəsmi imtahan platformasına daxil olun</p>
       </header>
@@ -525,31 +570,6 @@
       </div>
     </div>
 
-    <nav class="footer-col" aria-label="Sürətli keçidlər">
-      <h4>Sürətli Keçidlər</h4>
-      <ul>
-        <li><a href="#home"        data-page="home">Ana səhifə</a></li>
-        <li><a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a></li>
-        <li><a href="#muellimler"  data-page="muellimler">Müəllimlər</a></li>
-        <li><a href="#netiveler"   data-page="netiveler">Nəticələr</a></li>
-        <li><a href="#xeberler"    data-page="xeberler">Xəbərlər</a></li>
-        <li><a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a></li>
-        <li><a href="#elaqe"       data-page="elaqe">Əlaqə</a></li>
-      </ul>
-    </nav>
-
-    <nav class="footer-col" aria-label="Hazırlıqlar">
-      <h4>Hazırlıqlar</h4>
-      <ul>
-        <li><a href="#hazirlilar" data-page="hazirlilar">Abituriyent hazırlığı</a></li>
-        <li><a href="#hazirlilar" data-page="hazirlilar">MİQ hazırlığı</a></li>
-        <li><a href="#hazirlilar" data-page="hazirlilar">Kurikulum hazırlığı</a></li>
-        <li><a href="#hazirlilar" data-page="hazirlilar">İbtidai sinif</a></li>
-        <li><a href="#hazirlilar" data-page="hazirlilar">Dil kursları</a></li>
-        <li><a href="#hazirlilar" data-page="hazirlilar">Mühasibatlıq</a></li>
-        <li><a href="#imtahanlar" data-page="imtahanlar">İmtahanlar</a></li>
-      </ul>
-    </nav>
   </div>
 
   <div class="footer-bottom">
@@ -574,6 +594,27 @@
     <h2 class="overlay-title" id="overlay-title"></h2>
     <div class="overlay-date" id="overlay-date"></div>
     <div class="overlay-body" id="overlay-body"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     VACANCY DETAIL OVERLAY
+     ============================================================ -->
+<div id="vacancy-overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="vacancy-overlay-title">
+  <div class="overlay-backdrop"></div>
+  <div class="overlay-content">
+    <button class="overlay-close" id="vacancy-overlay-close" aria-label="Bağla">
+      <i class="fas fa-times"></i>
+    </button>
+    <div id="vacancy-overlay-icon" style="width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:16px;background:var(--purple)"></div>
+    <h2 class="overlay-title" id="vacancy-overlay-title"></h2>
+    <div class="overlay-date" id="vacancy-overlay-meta"></div>
+    <div class="overlay-body" id="vacancy-overlay-body"></div>
+    <a id="vacancy-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer"
+       class="btn-primary" style="margin-top:24px;display:inline-flex;align-items:center;gap:8px;background:#25d366;border-color:#25d366;color:#fff;">
+      <i class="fab fa-whatsapp"></i> Müraciət et
+    </a>
   </div>
 </div>
 
@@ -607,11 +648,8 @@
 <!-- Sync home news grid with news page grid -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Clone news to home page
   const homeGrid = document.getElementById('news-grid-home');
-  const newsGrid = document.getElementById('news-grid');
-  if (homeGrid && newsGrid) {
-    // Render home news too
+  if (homeGrid) {
     NEWS.forEach(item => {
       const card = document.createElement('article');
       card.className = 'news-card';

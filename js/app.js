@@ -15,6 +15,8 @@
 const state = {
   currentPage: 'home',
   prepBreadcrumb: [],   // [{id, name, type}] – navigation trail
+  lastScrollY: {},      // Scroll positions per page
+  teacherScrollY: 0,    // Müəllim grid scroll position before detail view
 };
 
 /* ============================================================
@@ -33,6 +35,9 @@ const el = (tag, cls = '', html = '') => {
    NAVIGATION
    ============================================================ */
 function navigateTo(pageId) {
+  // Save scroll position for current page
+  state.lastScrollY[state.currentPage] = window.scrollY;
+
   // Hide all pages
   $$('.page').forEach(p => p.classList.remove('active'));
   // Show target
@@ -46,10 +51,24 @@ function navigateTo(pageId) {
   });
   // Close mobile menu
   $('#mobile-menu').classList.remove('open');
-  // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Scroll to top immediately (no smooth) to prevent scroll-to-bottom bug
+  window.scrollTo({ top: 0, behavior: 'instant' });
   // Update URL hash (no reload)
   history.pushState(null, '', `#${pageId}`);
+}
+
+/* ============================================================
+   PAGE BACK BUTTONS (ana səhifəyə qayıt)
+   ============================================================ */
+function initPageBackButtons() {
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.page-back-btn');
+    if (btn) {
+      e.preventDefault();
+      const page = btn.dataset.page || 'home';
+      navigateTo(page);
+    }
+  });
 }
 
 /* ============================================================
@@ -64,13 +83,15 @@ function initNavbar() {
 
   // Hamburger
   $('#hamburger-btn').addEventListener('click', () => {
-    $('#mobile-menu').classList.toggle('open');
+    const menu = $('#mobile-menu');
+    const isOpen = menu.classList.toggle('open');
+    $('#hamburger-btn').setAttribute('aria-expanded', isOpen);
   });
 
   // Nav links
   document.addEventListener('click', e => {
     const link = e.target.closest('[data-page]');
-    if (link) {
+    if (link && !link.classList.contains('page-back-btn')) {
       e.preventDefault();
       navigateTo(link.dataset.page);
     }
@@ -144,6 +165,78 @@ function closeNewsOverlay() {
 }
 
 /* ============================================================
+   VACANCIES / VAKANSİYALAR
+   ============================================================ */
+function renderVacancies() {
+  const grid = $('#vacancies-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  if (!VACANCIES || VACANCIES.length === 0) {
+    grid.innerHTML = '<p style="color:var(--gray-600);padding:40px 0;text-align:center;">Hazırda aktiv vakansiya yoxdur.</p>';
+    return;
+  }
+
+  VACANCIES.forEach(vac => {
+    const card = el('div', 'vacancy-card');
+    card.innerHTML = `
+      <div class="vacancy-card-header ${vac.colorClass}">
+        <span class="vacancy-icon">${vac.icon}</span>
+      </div>
+      <div class="vacancy-card-body">
+        <div class="vacancy-type-badge">${vac.type}</div>
+        <h3 class="vacancy-card-title">${vac.title}</h3>
+        <p class="vacancy-card-text">${vac.shortText}</p>
+        <div class="vacancy-salary"><i class="fas fa-money-bill-wave"></i> ${vac.salary}</div>
+        <button class="vacancy-detail-btn">
+          Ətraflı məlumat <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    `;
+    card.querySelector('.vacancy-detail-btn').addEventListener('click', () => openVacancyOverlay(vac));
+    grid.appendChild(card);
+  });
+}
+
+function openVacancyOverlay(vac) {
+  const overlay = $('#vacancy-overlay');
+  const colorMap = { purple: '#7c3aed', green: '#16a34a', orange: '#ea580c' };
+  const color = colorMap[vac.colorClass] || '#7c3aed';
+
+  $('#vacancy-overlay-icon').textContent = vac.icon;
+  $('#vacancy-overlay-icon').style.background = color;
+  $('#vacancy-overlay-title').textContent = vac.title;
+  $('#vacancy-overlay-meta').innerHTML = `<i class="fas fa-briefcase"></i> ${vac.type} &nbsp;|&nbsp; <i class="fas fa-money-bill-wave"></i> ${vac.salary}`;
+
+  // Convert newlines to HTML for full text
+  const bodyEl = $('#vacancy-overlay-body');
+  bodyEl.innerHTML = '';
+  vac.fullText.split('\n').forEach(line => {
+    if (line.trim() === '') {
+      bodyEl.appendChild(document.createElement('br'));
+    } else {
+      const p = document.createElement('p');
+      p.style.marginBottom = '6px';
+      p.textContent = line;
+      bodyEl.appendChild(p);
+    }
+  });
+
+  // WhatsApp link - direct to messages
+  const waBtn = $('#vacancy-whatsapp-btn');
+  const waMsg = encodeURIComponent(`Salam! "${vac.title}" vakansiyası ilə bağlı müraciət etmək istəyirəm.`);
+  waBtn.href = `https://wa.me/994559406018?text=${waMsg}`;
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVacancyOverlay() {
+  $('#vacancy-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ============================================================
    PREPARATIONS / HAZIRLILAR
    ============================================================ */
 function renderPrepCategories() {
@@ -168,6 +261,8 @@ function renderPrepCategories() {
     `;
     card.addEventListener('click', () => {
       state.prepBreadcrumb = [{ id: cat.id, name: cat.name, type: 'category' }];
+      // Scroll to top immediately before rendering
+      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepSubCategories(cat);
     });
     grid.appendChild(card);
@@ -182,7 +277,10 @@ function renderPrepSubCategories(cat) {
   updateBreadcrumb();
 
   // Back button
-  const back = makeBackBtn(() => renderPrepCategories());
+  const back = makeBackBtn(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    renderPrepCategories();
+  });
   container.appendChild(back);
 
   // Title
@@ -208,6 +306,7 @@ function renderPrepSubCategories(cat) {
         { id: cat.id, name: cat.name, type: 'category', ref: cat },
         { id: sub.id, name: sub.name, type: 'sub', ref: sub, catRef: cat }
       ];
+      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepTeachers(sub, cat);
     });
     grid.appendChild(card);
@@ -225,8 +324,10 @@ function renderPrepTeachers(sub, parentCat) {
   const back = makeBackBtn(() => {
     if (state.prepBreadcrumb.length > 1) {
       state.prepBreadcrumb.pop();
+      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepSubCategories(parentCat);
     } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepCategories();
     }
   });
@@ -246,6 +347,7 @@ function renderPrepTeachers(sub, parentCat) {
   const grid = el('div', 'teachers-grid');
   teachers.forEach(t => {
     grid.appendChild(makeTeacherCard(t, () => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepTeacherDetail(t, sub, parentCat);
     }));
   });
@@ -260,6 +362,7 @@ function renderPrepTeacherDetail(teacher, sub, parentCat) {
 
   const back = makeBackBtn(() => {
     state.prepBreadcrumb.pop();
+    window.scrollTo({ top: 0, behavior: 'instant' });
     renderPrepTeachers(sub, parentCat);
   });
   container.appendChild(back);
@@ -359,7 +462,10 @@ function updateBreadcrumb() {
   const home = el('span', '', 'Hazırlıqlar');
   home.style.cursor = 'pointer';
   home.style.color = 'var(--purple)';
-  home.addEventListener('click', renderPrepCategories);
+  home.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    renderPrepCategories();
+  });
   bc.appendChild(home);
 
   state.prepBreadcrumb.forEach((crumb, i) => {
@@ -376,6 +482,7 @@ function updateBreadcrumb() {
 
 /* ============================================================
    ALL TEACHERS PAGE
+   Fix: karta basanda scroll olmur, çıxışda həmin yerdə qalmaq
    ============================================================ */
 function renderAllTeachers() {
   const grid = $('#all-teachers-grid');
@@ -384,21 +491,32 @@ function renderAllTeachers() {
 
   TEACHERS.forEach(t => {
     const card = makeTeacherCard(t, () => {
-      // Show teacher detail inline
+      // Save current scroll position before showing detail
+      state.teacherScrollY = window.scrollY;
+
+      // Show teacher detail inline - NO scroll to top
       const detail = $('#teacher-detail-view');
+      const gridWrap = $('#all-teachers-grid-wrap');
       detail.innerHTML = '';
+
       const back = makeBackBtn(() => {
         detail.innerHTML = '';
         detail.style.display = 'none';
-        grid.style.display = 'grid';
-        $('#all-teachers-grid-wrap').style.display = '';
+        gridWrap.style.display = '';
+        // Restore scroll position after hiding detail
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: state.teacherScrollY, behavior: 'instant' });
+        });
       });
       detail.appendChild(back);
       detail.appendChild(makeTeacherDetail(t));
       detail.style.display = 'block';
-      grid.style.display = 'none';
-      $('#all-teachers-grid-wrap').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      gridWrap.style.display = 'none';
+      // Scroll to detail header smoothly
+      requestAnimationFrame(() => {
+        const detailTop = detail.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: Math.max(0, detailTop), behavior: 'smooth' });
+      });
     });
     grid.appendChild(card);
   });
@@ -435,7 +553,7 @@ function renderGallery() {
   if (!grid) return;
   grid.innerHTML = '';
 
-  GALLERY.forEach((item, idx) => {
+  GALLERY.forEach((item) => {
     const div = el('div', 'gallery-item');
     div.innerHTML = `
       <img src="${item.src}" alt="${item.alt}" loading="lazy">
@@ -467,7 +585,7 @@ function renderFAQ() {
   if (!list) return;
   list.innerHTML = '';
 
-  FAQ.forEach((item, i) => {
+  FAQ.forEach((item) => {
     const div = el('div', 'faq-item');
     div.innerHTML = `
       <div class="faq-question" tabindex="0" role="button" aria-expanded="false">
@@ -515,9 +633,13 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGraduates();
   renderGallery();
   renderFAQ();
+  renderVacancies();
 
   // Navbar
   initNavbar();
+
+  // Page back buttons
+  initPageBackButtons();
 
   // Hero counter animation
   initHero();
@@ -526,13 +648,19 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#overlay-close').addEventListener('click', closeNewsOverlay);
   $('#news-overlay').querySelector('.overlay-backdrop').addEventListener('click', closeNewsOverlay);
 
+  // Vacancy overlay close
+  $('#vacancy-overlay-close').addEventListener('click', closeVacancyOverlay);
+  $('#vacancy-overlay').querySelector('.overlay-backdrop').addEventListener('click', closeVacancyOverlay);
+
   // Lightbox close
   $('#lightbox-close').addEventListener('click', closeLightbox);
   $('#lightbox-bg').addEventListener('click', closeLightbox);
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closeNewsOverlay();
       closeLightbox();
+      closeVacancyOverlay();
     }
   });
 

@@ -489,7 +489,7 @@ const PREP_CATEGORIES = [
   },
   {
     id: "rus-dili",
-    name: "Rus dili müəllimi",
+    name: "Rus dili hazırlığı",
     description: "Rus dili öyrən – peşəkar müəllimlə",
     icon: "🇷🇺",
     color: "#b91c1c",
@@ -650,5 +650,39 @@ const FAQ = [
   {
     question: "Mərkəziniz haradadır?",
     answer: "Mərkəzimizin ünvanını xəritə bölməsindən tapa bilərsiniz. Həmçinin onlayn dərslər üçün heç bir məkan tələb olunmur."
+  }
+];
+
+/* ===================== VACANCIES ===================== */
+const VACANCIES = [
+  {
+    id: "vac-1",
+    title: "Riyaziyyat Müəllimi",
+    icon: "🔢",
+    colorClass: "purple",
+    type: "Tam ştat",
+    shortText: "Abituriyent qrupu üçün riyaziyyat müəllimi axtarılır.",
+    fullText: "Careerland Təhsil Mərkəzi abituriyent qrupları üçün riyaziyyat müəllimi axtarır.\n\nTələblər:\n• Riyaziyyat ixtisası üzrə ali təhsil\n• Ən azı 2 il tədris təcrübəsi\n• MİQ sertifikatı üstünlük sayılır\n• Kommunikasiya bacarıqları\n\nŞərtlər:\n• Tam ştat iş\n• Rəqabətli maaş\n• Əlverişli iş mühiti",
+    salary: "Razılaşma ilə"
+  },
+  {
+    id: "vac-2",
+    title: "İngilis Dili Müəllimi",
+    icon: "🌍",
+    colorClass: "green",
+    type: "Tam / Yarım ştat",
+    shortText: "İngilis dili kursları üçün müəllim axtarılır.",
+    fullText: "Careerland Təhsil Mərkəzi dil kursları üçün ingilis dili müəllimi axtarır.\n\nTələblər:\n• İngilis dili ixtisası üzrə ali təhsil\n• IELTS 7.0+ və ya TOEFL 100+ sertifikatı\n• Tədris təcrübəsi arzuolunandır\n• Ünsiyyətcil, enerjili şəxsiyyət\n\nŞərtlər:\n• Tam və ya yarım ştat iş\n• Çevik iş qrafiki\n• Rəqabətli maaş",
+    salary: "Razılaşma ilə"
+  },
+  {
+    id: "vac-3",
+    title: "Ofis Koordinatoru",
+    icon: "💼",
+    colorClass: "orange",
+    type: "Tam ştat",
+    shortText: "Mərkəzimiz üçün ofis koordinatoru axtarılır.",
+    fullText: "Careerland Təhsil Mərkəzi üçün ofis koordinatoru axtarır.\n\nTələblər:\n• Ali və ya orta ixtisas təhsili\n• MS Office (Word, Excel) biliyi\n• Ünsiyyət bacarıqları\n• Məsuliyyət və intizamlılıq\n• Müştəri ilə işləmə bacarığı\n\nŞərtlər:\n• Tam ştat iş\n• Rahat iş mühiti\n• Karyera inkişafı imkanı\n• Aylıq sabit maaş",
+    salary: "Razılaşma ilə"
   }
 ];
