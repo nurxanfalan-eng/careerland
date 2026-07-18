@@ -549,7 +549,16 @@ const NEWS = [
     fullText: "Yay mövsümü münasibəti ilə bütün kurslarımızda 20% endirim elan edirik! Bu fürsəti əldən verməyin. Abituriyent, MİQ, Kurikulum, dil kursları – hamısında bu endirim tətbiq olunur. Endirim müddəti məhdudlaşdırılıb. İndi qeydiyyatdan keçin və 20% qənaət edin!",
     colorClass: "orange",
     icon: "🎉"
-  }
+  },
+  {
+    id: "news-4",
+    title: "Yeni qehi qrupu başlayır!",
+    date: "15 Avqust 2024",
+    shortText: "Yeni MİQ qrupumuza qeydiyyat başladı!",
+    fullText: "Hörmətli müəllim dostlarımız! Sentyabr ayından yeni MİQ hazırlıq qrupumuz başlayır. Peşəkar müəllimlərimizlə birlikdə MİQ imtahanına hazırlaşmaq üçün indi qeydiyyatdan keçin. Məhdud sayda yer var – tez davranın! Ətraflı məlumat üçün +994 55 940 60 18 nömrəsinə zəng edin.",
+    colorClass: "purple",
+    icon: "📢"
+  },
 ];
 
 /* ===================== GRADUATES ===================== */
