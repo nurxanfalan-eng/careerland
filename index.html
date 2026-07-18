@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Careerland Təhsil Mərkəzi – Peşəkar müəllimlər ilə yüksək nəticələr əldə et. Abituriyent, MİQ, Kurikulum, dil hazırlıqları.">
+  <meta name="keywords" content="careerland, təhsil, abituriyent, miq, kurikulum, hazırlıq, müəllim, kurs">
+  <meta name="author" content="Careerland Təhsil Mərkəzi">
+  <meta property="og:title" content="Careerland Təhsil Mərkəzi">
+  <meta property="og:description" content="Peşəkar müəllimlər ilə yüksək nəticələr əldə et">
+  <meta property="og:image" content="images/logo.png">
+  <title>Careerland Təhsil Mərkəzi</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav id="navbar" role="navigation" aria-label="Əsas naviqasiya">
+  <div class="navbar-inner">
+    <a href="#home" data-page="home" class="navbar-logo" aria-label="Ana səhifə">
+      <img src="images/logo.png" alt="Careerland loqosu">
+      <span>CAREER<span class="accent">LAND</span></span>
+    </a>
+
+    <ul class="navbar-links" role="list">
+      <li><a href="#home"        data-page="home"      aria-current="page">Ana səhifə</a></li>
+      <li><a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a></li>
+      <li><a href="#muellimler"  data-page="muellimler">Müəllimlər</a></li>
+      <li><a href="#netiveler"   data-page="netiveler">Nəticələr</a></li>
+      <li><a href="#xeberler"    data-page="xeberler">Xəbərlər</a></li>
+      <li><a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a></li>
+      <li><a href="#elaqe"       data-page="elaqe">Əlaqə</a></li>
+    </ul>
+
+    <button id="hamburger-btn" class="navbar-hamburger" aria-label="Menyu aç/bağla" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobil naviqasiya">
+    <a href="#home"        data-page="home">Ana səhifə</a>
+    <a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a>
+    <a href="#muellimler"  data-page="muellimler">Müəllimlər</a>
+    <a href="#netiveler"   data-page="netiveler">Nəticələr</a>
+    <a href="#xeberler"    data-page="xeberler">Xəbərlər</a>
+    <a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a>
+    <a href="#elaqe"       data-page="elaqe">Əlaqə</a>
+  </nav>
+</nav>
+
+
+<!-- ============================================================
+     PAGE: HOME
+     ============================================================ -->
+<main id="page-home" class="page" role="main">
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Əsas banner">
+    <!-- Decorative shapes -->
+    <div class="hero-shape hero-shape-1" aria-hidden="true"></div>
+    <div class="hero-shape hero-shape-2" aria-hidden="true"></div>
+    <div class="hero-shape hero-shape-3" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-graduation-cap"></i>
+          Peşəkar Hazırlıq Mərkəzi
+        </div>
+
+        <h1 class="hero-title">
+          Gələcəyini
+          <span class="accent">Bu Gündən Qur!</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Peşəkar müəllimlər ilə yüksək nəticələr əldə et
+        </p>
+
+        <ul class="hero-list" role="list">
+          <li><i class="fas fa-check-circle"></i> Abituriyent hazırlığı</li>
+          <li><i class="fas fa-check-circle"></i> MİQ hazırlığı</li>
+          <li><i class="fas fa-check-circle"></i> Kurikulum hazırlığı</li>
+          <li><i class="fas fa-check-circle"></i> Xarici dillər</li>
+          <li><i class="fas fa-check-circle"></i> İbtidai sinif hazırlığı və s.</li>
+        </ul>
+
+        <div class="hero-actions">
+          <a href="#hazirlilar" data-page="hazirlilar" class="btn-outline" aria-label="Hazırlıqlara bax">
+            Hazırlıqlara Bax <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#elaqe" data-page="elaqe" class="btn-primary" aria-label="Bizimlə əlaqə">
+            <i class="fas fa-phone"></i> Əlaqə
+          </a>
+        </div>
+
+        <div class="hero-stats" role="list">
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-num counter" data-target="500" data-suffix="+">0+</span>
+            <span class="hero-stat-label">Uğurlu Məzun</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-num counter" data-target="12" data-suffix="+">0+</span>
+            <span class="hero-stat-label">Peşəkar Müəllim</span>
+          </div>
+          <div class="hero-stat" role="listitem">
+            <span class="hero-stat-num counter" data-target="7" data-suffix="+">0+</span>
+            <span class="hero-stat-label">Kurs növü</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero visual -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-circle-inner">
+          <!-- SVG illustration of students -->
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;inset:0">
+            <defs>
+              <radialGradient id="bgGrad" cx="50%" cy="50%">
+                <stop offset="0%" stop-color="#ffd740"/>
+                <stop offset="100%" stop-color="#f5c518"/>
+              </radialGradient>
+            </defs>
+            <circle cx="200" cy="200" r="200" fill="url(#bgGrad)"/>
+
+            <!-- Student figure 1 (left) -->
+            <ellipse cx="145" cy="340" rx="55" ry="20" fill="rgba(0,0,0,0.1)"/>
+            <!-- Body -->
+            <rect x="110" y="220" width="70" height="110" rx="12" fill="#6bb3f5"/>
+            <!-- Head -->
+            <circle cx="145" cy="200" r="30" fill="#f5c090"/>
+            <!-- Hair -->
+            <path d="M118 185 Q145 155 172 185 Q165 162 145 158 Q125 162 118 185Z" fill="#3d2314"/>
+            <!-- Book in hand -->
+            <rect x="88" y="255" width="35" height="45" rx="4" fill="#e8d5a3" transform="rotate(-10,105,277)"/>
+            <rect x="90" y="257" width="33" height="43" rx="3" fill="#d4b896" transform="rotate(-10,106,278)"/>
+
+            <!-- Student figure 2 (right) -->
+            <ellipse cx="265" cy="340" rx="55" ry="20" fill="rgba(0,0,0,0.1)"/>
+            <!-- Backpack -->
+            <rect x="284" y="225" width="28" height="55" rx="8" fill="#1a2e45"/>
+            <!-- Body -->
+            <rect x="230" y="218" width="70" height="115" rx="12" fill="#6bb3f5"/>
+            <!-- Head -->
+            <circle cx="265" cy="195" r="30" fill="#c8956a"/>
+            <!-- Hair -->
+            <path d="M238 180 Q265 148 292 180 Q285 158 265 153 Q245 158 238 180Z" fill="#2d1810"/>
+            <!-- Book in hand -->
+            <rect x="250" y="260" width="28" height="38" rx="3" fill="#1a2e45"/>
+
+            <!-- Floating academic icons -->
+            <text x="60" y="140" font-size="22" opacity=".4">📐</text>
+            <text x="310" y="120" font-size="20" opacity=".4">🔬</text>
+            <text x="340" y="260" font-size="18" opacity=".35">📚</text>
+            <text x="30" y="280" font-size="18" opacity=".35">✏️</text>
+            <text x="190" y="80" font-size="16" opacity=".3">⭐</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK LINKS (after hero) -->
+  <section class="section section-alt" aria-label="Sürətli keçidlər">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+        <a href="#hazirlilar" data-page="hazirlilar" style="display:flex;align-items:center;gap:12px;background:var(--white);padding:20px;border-radius:12px;box-shadow:var(--shadow);transition:var(--transition);color:var(--gray-800);font-weight:600" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <span style="width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,0.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem">🎓</span>
+          Hazırlıqlar
+        </a>
+        <a href="#muellimler" data-page="muellimler" style="display:flex;align-items:center;gap:12px;background:var(--white);padding:20px;border-radius:12px;box-shadow:var(--shadow);transition:var(--transition);color:var(--gray-800);font-weight:600" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <span style="width:44px;height:44px;border-radius:12px;background:rgba(22,163,74,0.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem">👩‍🏫</span>
+          Müəllimlər
+        </a>
+        <a href="#netiveler" data-page="netiveler" style="display:flex;align-items:center;gap:12px;background:var(--white);padding:20px;border-radius:12px;box-shadow:var(--shadow);transition:var(--transition);color:var(--gray-800);font-weight:600" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <span style="width:44px;height:44px;border-radius:12px;background:rgba(245,197,24,0.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem">🏆</span>
+          Nəticələr
+        </a>
+        <a href="#imtahanlar" data-page="imtahanlar" style="display:flex;align-items:center;gap:12px;background:var(--white);padding:20px;border-radius:12px;box-shadow:var(--shadow);transition:var(--transition);color:var(--gray-800);font-weight:600" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <span style="width:44px;height:44px;border-radius:12px;background:rgba(234,88,12,0.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem">📝</span>
+          İmtahanlar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS PREVIEW -->
+  <section class="section" id="home-news-section" aria-label="Son xəbərlər">
+    <div class="container">
+      <div class="section-header" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <h2 class="section-title"><i class="fas fa-newspaper"></i> Xəbərlər</h2>
+          <p class="section-subtitle">Ən son yeniliklər</p>
+        </div>
+        <a href="#xeberler" data-page="xeberler" class="view-all">Bütün xəbərlər <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div id="news-grid-home" class="news-grid"></div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ============================================================
+     PAGE: HAZIRLILAR
+     ============================================================ -->
+<div id="page-hazirlilar" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <h1 class="section-title"><i class="fas fa-graduation-cap"></i> Hazırlıqlar</h1>
+        <p class="section-subtitle">Hazırlıq növünü seçin, müəllimlər ilə tanış olun</p>
+      </header>
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" id="prep-breadcrumb" aria-label="Naviqasiya yolu" style="margin-bottom:20px"></nav>
+
+      <!-- Dynamic content rendered here -->
+      <div id="prep-main"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: MÜƏLLİMLƏR
+     ============================================================ -->
+<div id="page-muellimler" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <h1 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Müəllimlər</h1>
+        <p class="section-subtitle">Peşəkar müəllimlərimizlə tanış olun</p>
+      </header>
+
+      <!-- Teacher detail view (hidden by default) -->
+      <div id="teacher-detail-view" style="display:none"></div>
+
+      <!-- All teachers grid -->
+      <div id="all-teachers-grid-wrap">
+        <div id="all-teachers-grid" class="all-teachers-grid"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: NƏTİCƏLƏR
+     ============================================================ -->
+<div id="page-netiveler" class="page">
+  <!-- Graduates -->
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <h1 class="section-title"><i class="fas fa-trophy"></i> Uğurlu Məzunlarımız</h1>
+        <p class="section-subtitle">Uğurlu tələbələrimizin nailiyyətlərini sevinclə paylaşırıq</p>
+      </header>
+      <div id="graduates-grid" class="graduates-grid"></div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section section-alt" id="gallery-section">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title"><i class="fas fa-images"></i> Qalerya</h2>
+        <p class="section-subtitle">Mərkəzimizin görüntüləri</p>
+      </header>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: XƏBƏRLƏR
+     ============================================================ -->
+<div id="page-xeberler" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <h1 class="section-title"><i class="fas fa-newspaper"></i> Xəbərlər</h1>
+        <p class="section-subtitle">Mərkəzimizdən ən son yeniliklər</p>
+      </header>
+      <div id="news-grid" class="news-grid"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: HAQQIMIZDA
+     ============================================================ -->
+<div id="page-haqqimizda" class="page">
+  <section class="section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-logo">
+          <img src="images/logo.png" alt="Careerland Loqosu" loading="lazy">
+        </div>
+        <div class="about-text">
+          <h1 class="section-title" style="font-size:2rem;margin-bottom:16px">
+            <i class="fas fa-info-circle" style="color:var(--accent)"></i>
+            Haqqımızda
+          </h1>
+          <p>
+            <strong>Careerland Təhsil Mərkəzi</strong> – gənclərə keyfiyyətli təhsil imkanı yaratmaq missiyası ilə fəaliyyət göstərən müasir hazırlıq mərkəzidir.
+          </p>
+          <p>
+            Peşəkar müəllimlər komandasımız hər tələbənin fərdi ehtiyaclarına uyğun hazırlıq proqramları təqdim edir. Abituriyent hazırlığından MİQ-ə, kurikulumdan dil kurslarına qədər geniş xidmət yelpazəsi mövcuddur.
+          </p>
+          <p>
+            Məqsədimiz – hər bir tələbənin potensialını üzə çıxarmaq və onları uğurlu gələcəyə aparmaqdir.
+          </p>
+          <div class="about-highlights">
+            <div class="about-highlight"><i class="fas fa-check"></i> 500+ Uğurlu Məzun</div>
+            <div class="about-highlight"><i class="fas fa-check"></i> 12+ Peşəkar Müəllim</div>
+            <div class="about-highlight"><i class="fas fa-check"></i> 7+ Kurs növü</div>
+            <div class="about-highlight"><i class="fas fa-check"></i> Onlayn & Offline</div>
+            <div class="about-highlight"><i class="fas fa-check"></i> Fərdi yanaşma</div>
+          </div>
+          <div style="margin-top:28px">
+            <a href="#elaqe" data-page="elaqe" class="btn-primary">
+              <i class="fas fa-phone"></i> Bizimlə əlaqə
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats section -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;text-align:center">
+        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--accent);margin-bottom:8px">500+</div>
+          <div style="color:var(--gray-600);font-size:.9rem">Uğurlu Məzun</div>
+        </div>
+        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--purple);margin-bottom:8px">12+</div>
+          <div style="color:var(--gray-600);font-size:.9rem">Peşəkar Müəllim</div>
+        </div>
+        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--green);margin-bottom:8px">7+</div>
+          <div style="color:var(--gray-600);font-size:.9rem">Kurs növü</div>
+        </div>
+        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
+          <div style="font-size:2.5rem;font-weight:900;color:var(--orange);margin-bottom:8px">100%</div>
+          <div style="color:var(--gray-600);font-size:.9rem">Məmnuniyyət</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: ƏLAQƏ
+     ============================================================ -->
+<div id="page-elaqe" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header" style="margin-bottom:40px">
+        <h1 class="section-title"><i class="fas fa-envelope"></i> Əlaqə</h1>
+        <p class="section-subtitle">Bizimlə əlaqə saxlayın</p>
+      </header>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <!-- WhatsApp -->
+          <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer"
+             class="contact-item" aria-label="WhatsApp ilə əlaqə">
+            <div class="contact-item-icon whatsapp">
+              <i class="fab fa-whatsapp"></i>
+            </div>
+            <div>
+              <div class="contact-item-label">WhatsApp</div>
+              <div class="contact-item-value">+994 55 940 60 18</div>
+            </div>
+            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/careerland/" target="_blank" rel="noopener noreferrer"
+             class="contact-item" aria-label="Instagram hesabımız">
+            <div class="contact-item-icon instagram">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div>
+              <div class="contact-item-label">Instagram</div>
+              <div class="contact-item-value">@careerland</div>
+            </div>
+            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+          </a>
+
+          <!-- Map -->
+          <a href="https://maps.app.goo.gl/JRdnmuJs9ZrhbVMs5" target="_blank" rel="noopener noreferrer"
+             class="contact-item" aria-label="Xəritədə biz">
+            <div class="contact-item-icon map">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <div class="contact-item-label">Ünvan</div>
+              <div class="contact-item-value">Xəritədə Bax</div>
+            </div>
+            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+          </a>
+
+          <!-- Phone call -->
+          <a href="tel:+994559406018" class="contact-item" aria-label="Zəng et">
+            <div class="contact-item-icon" style="background:var(--accent);color:var(--primary)">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <div class="contact-item-label">Telefon</div>
+              <div class="contact-item-value">+994 55 940 60 18</div>
+            </div>
+            <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--gray-400)"></i>
+          </a>
+        </div>
+
+        <!-- Map embed -->
+        <div class="contact-map">
+          <iframe
+            src="https://maps.google.com/maps?q=Baku,+Azerbaijan&output=embed&z=13"
+            title="Mərkəzin yeri"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+          <a href="https://maps.app.goo.gl/JRdnmuJs9ZrhbVMs5"
+             target="_blank" rel="noopener noreferrer" class="contact-map-btn">
+            <i class="fas fa-directions"></i> Xəritədə Göstər
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ on contact page -->
+  <section class="section section-alt">
+    <div class="container">
+      <header class="section-header" style="text-align:center">
+        <h2 class="section-title" style="justify-content:center"><i class="fas fa-question-circle"></i> Tez-Tez Soruşulan Suallar</h2>
+        <p class="section-subtitle">Sizin suallarınıza cavab tapın</p>
+      </header>
+      <div id="faq-list" class="faq-list"></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     PAGE: İMTAHANLAR
+     ============================================================ -->
+<div id="page-imtahanlar" class="page">
+  <section class="section">
+    <div class="container">
+      <header class="section-header" style="text-align:center;max-width:600px;margin:0 auto 40px">
+        <h1 class="section-title" style="justify-content:center"><i class="fas fa-pencil-alt"></i> İmtahanlar</h1>
+        <p class="section-subtitle">Rəsmi imtahan platformasına daxil olun</p>
+      </header>
+      <div class="exams-content">
+        <div class="exams-box">
+          <div class="exams-icon">📝</div>
+          <h3>OTK.AZ İmtahan Portalı</h3>
+          <p>
+            Abituriyent, MİQ, Kurikulum və digər rəsmi imtahanlar haqqında ətraflı məlumat almaq, onlayn imtahan verməklə özünüzü yoxlamaq üçün OTK.AZ portalına daxil olun.
+          </p>
+          <a href="https://otk.az/" target="_blank" rel="noopener noreferrer" class="exams-btn">
+            <i class="fas fa-external-link-alt"></i> OTK.AZ-a daxil ol
+          </a>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--gray-200)">
+            <p style="font-size:.85rem;color:var(--gray-400)">
+              <i class="fas fa-info-circle"></i>
+              Bu keçid sizi rəsmi OTK.AZ platformasına yönləndirir
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="images/logo.png" alt="Careerland Loqosu" loading="lazy">
+        <span>CAREER<span class="accent">LAND</span></span>
+      </div>
+      <p>Peşəkar müəllimlər ilə yüksək nəticələr əldə et. Gələcəyini bu gündən qur!</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/careerland/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="tel:+994559406018" class="footer-social" aria-label="Zəng et">
+          <i class="fas fa-phone"></i>
+        </a>
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Sürətli keçidlər">
+      <h4>Sürətli Keçidlər</h4>
+      <ul>
+        <li><a href="#home"        data-page="home">Ana səhifə</a></li>
+        <li><a href="#hazirlilar"  data-page="hazirlilar">Hazırlıqlar</a></li>
+        <li><a href="#muellimler"  data-page="muellimler">Müəllimlər</a></li>
+        <li><a href="#netiveler"   data-page="netiveler">Nəticələr</a></li>
+        <li><a href="#xeberler"    data-page="xeberler">Xəbərlər</a></li>
+        <li><a href="#haqqimizda"  data-page="haqqimizda">Haqqımızda</a></li>
+        <li><a href="#elaqe"       data-page="elaqe">Əlaqə</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label="Hazırlıqlar">
+      <h4>Hazırlıqlar</h4>
+      <ul>
+        <li><a href="#hazirlilar" data-page="hazirlilar">Abituriyent hazırlığı</a></li>
+        <li><a href="#hazirlilar" data-page="hazirlilar">MİQ hazırlığı</a></li>
+        <li><a href="#hazirlilar" data-page="hazirlilar">Kurikulum hazırlığı</a></li>
+        <li><a href="#hazirlilar" data-page="hazirlilar">İbtidai sinif</a></li>
+        <li><a href="#hazirlilar" data-page="hazirlilar">Dil kursları</a></li>
+        <li><a href="#hazirlilar" data-page="hazirlilar">Mühasibatlıq</a></li>
+        <li><a href="#imtahanlar" data-page="imtahanlar">İmtahanlar</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2024 Careerland Təhsil Mərkəzi. Bütün hüquqlar qorunur.</span>
+    <span>
+      <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer">+994 55 940 60 18</a>
+    </span>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     NEWS OVERLAY
+     ============================================================ -->
+<div id="news-overlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+  <div class="overlay-backdrop"></div>
+  <div class="overlay-content">
+    <button class="overlay-close" id="overlay-close" aria-label="Bağla">
+      <i class="fas fa-times"></i>
+    </button>
+    <div id="overlay-icon" style="width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:16px;background:var(--purple)"></div>
+    <h2 class="overlay-title" id="overlay-title"></h2>
+    <div class="overlay-date" id="overlay-date"></div>
+    <div class="overlay-body" id="overlay-body"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     LIGHTBOX
+     ============================================================ -->
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Şəkil böyüdücü">
+  <div id="lightbox-bg" class="lightbox-bg"></div>
+  <img id="lightbox-img" class="lightbox-img" src="" alt="">
+  <button id="lightbox-close" class="lightbox-close" aria-label="Bağla">
+    <i class="fas fa-times"></i>
+  </button>
+</div>
+
+
+<!-- ============================================================
+     SCROLL TO TOP
+     ============================================================ -->
+<button class="scroll-top" aria-label="Yuxarıya qayıt">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Sync home news grid with news page grid -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Clone news to home page
+  const homeGrid = document.getElementById('news-grid-home');
+  const newsGrid = document.getElementById('news-grid');
+  if (homeGrid && newsGrid) {
+    // Render home news too
+    NEWS.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'news-card';
+      const colorMap = { purple: '#7c3aed', green: '#16a34a', orange: '#ea580c' };
+      card.innerHTML = `
+        <div class="news-card-visual ${item.colorClass}">
+          <span class="news-icon">${item.icon}</span>
+        </div>
+        <div class="news-card-body">
+          <div class="news-card-date"><i class="far fa-calendar-alt"></i>${item.date}</div>
+          <h3 class="news-card-title">${item.title}</h3>
+          <p class="news-card-text">${item.shortText}</p>
+          <span class="news-card-link">Daha ətraflı <i class="fas fa-arrow-right"></i></span>
+        </div>
+      `;
+      card.addEventListener('click', () => {
+        const overlay = document.getElementById('news-overlay');
+        const color = colorMap[item.colorClass] || '#7c3aed';
+        document.getElementById('overlay-icon').textContent = item.icon;
+        document.getElementById('overlay-icon').style.background = color;
+        document.getElementById('overlay-title').textContent = item.title;
+        document.getElementById('overlay-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+        document.getElementById('overlay-body').textContent = item.fullText;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+      homeGrid.appendChild(card);
+    });
+  }
+});
+</script>
+
+</body>
+</html>
