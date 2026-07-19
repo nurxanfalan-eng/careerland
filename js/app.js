@@ -259,6 +259,8 @@ function renderPrepCategories() {
   // Reset breadcrumb
   state.prepBreadcrumb = [];
   updateBreadcrumb();
+  // Geri button disabled on root
+  setHazirlilarBack(null);
 
   const grid = el('div', 'prep-categories');
   PREP_CATEGORIES.forEach(cat => {
@@ -289,7 +291,15 @@ function renderPrepSubCategories(cat) {
 
   updateBreadcrumb();
 
-  // Back button - goes back to categories and RESTORES scroll position
+  // Update top-level Geri button to go back to categories
+  setHazirlilarBack(() => {
+    renderPrepCategories();
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: state.prepScrollY, behavior: 'instant' });
+    });
+  });
+
+  // Back button inside content area - same behaviour
   const back = makeBackBtn(() => {
     renderPrepCategories();
     requestAnimationFrame(() => {
@@ -335,8 +345,7 @@ function renderPrepTeachers(sub, parentCat) {
 
   updateBreadcrumb();
 
-  // Back - goes to subcategories
-  const back = makeBackBtn(() => {
+  const goBackFromTeachers = () => {
     if (state.prepBreadcrumb.length > 1) {
       state.prepBreadcrumb.pop();
       window.scrollTo({ top: 0, behavior: 'instant' });
@@ -347,7 +356,13 @@ function renderPrepTeachers(sub, parentCat) {
         window.scrollTo({ top: state.prepScrollY, behavior: 'instant' });
       });
     }
-  }, 'Geri');
+  };
+
+  // Update top-level Geri button
+  setHazirlilarBack(goBackFromTeachers);
+
+  // Back button inside content area
+  const back = makeBackBtn(goBackFromTeachers, 'Geri');
   container.appendChild(back);
 
   const title = el('h2', 'section-title', `${sub.icon} ${sub.name} – Müəllimlər`);
@@ -380,15 +395,19 @@ function renderPrepTeacherDetail(teacher, sub, parentCat, returnScrollY) {
 
   updateBreadcrumb();
 
-  // Back button - only "Geri" (not "Ana səhifəyə qayıt")
-  const back = makeBackBtn(() => {
+  const goBackFromDetail = () => {
     state.prepBreadcrumb.pop();
     renderPrepTeachers(sub, parentCat);
-    // Restore scroll position to where user was in teacher list
     requestAnimationFrame(() => {
       window.scrollTo({ top: returnScrollY || 0, behavior: 'instant' });
     });
-  }, 'Geri');
+  };
+
+  // Update top-level Geri button
+  setHazirlilarBack(goBackFromDetail);
+
+  // Back button - only "Geri"
+  const back = makeBackBtn(goBackFromDetail, 'Geri');
   container.appendChild(back);
 
   container.appendChild(makeTeacherDetail(teacher));
@@ -560,9 +579,11 @@ function renderGraduates() {
   GRADUATES.forEach(g => {
     const card = el('div', 'graduate-card');
     card.innerHTML = `
-      ${g.photo
-        ? `<img src="${g.photo}" alt="${g.name}" loading="lazy">`
-        : `<div style="height:220px;background:linear-gradient(135deg,var(--purple),var(--purple-light));display:flex;align-items:center;justify-content:center"><i class="fas fa-user" style="font-size:4rem;color:rgba(255,255,255,0.5)"></i></div>`}
+      <div class="graduate-card-img-wrap">
+        ${g.photo
+          ? `<img src="${g.photo}" alt="${g.name}" loading="lazy">`
+          : `<div class="graduate-card-placeholder"><i class="fas fa-user"></i></div>`}
+      </div>
       <div class="graduate-card-body">
         <div class="graduate-card-name">${g.name}</div>
         <div class="graduate-card-score">${g.score}</div>
@@ -573,28 +594,171 @@ function renderGraduates() {
 }
 
 /* ============================================================
-   GALLERY
+   GALLERY SLIDER
    ============================================================ */
-function renderGallery() {
-  const grid = $('#gallery-grid');
-  if (!grid) return;
-  grid.innerHTML = '';
+const galleryState = {
+  current: 0,
+  total: 0,
+  touchStartX: 0,
+  touchStartY: 0,
+  isDragging: false,
+  dragStartX: 0,
+  autoTimer: null
+};
 
-  GALLERY.forEach((item) => {
-    const div = el('div', 'gallery-item');
-    div.innerHTML = `
-      <img src="${item.src}" alt="${item.alt}" loading="lazy">
-      <div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
+function renderGallery() {
+  const track = $('#gallery-slider-track');
+  const dotsWrap = $('#gallery-dots');
+  const counter = $('#gallery-counter');
+  const prevBtn = $('#gallery-prev');
+  const nextBtn = $('#gallery-next');
+
+  if (!track) return;
+
+  const items = GALLERY;
+  galleryState.total = items.length;
+  galleryState.current = 0;
+
+  // Build slides
+  track.innerHTML = '';
+  items.forEach((item, i) => {
+    const slide = el('div', 'gallery-slider-slide');
+    slide.setAttribute('data-index', i);
+    slide.innerHTML = `
+      <img src="${item.src}" alt="${item.alt}" loading="${i === 0 ? 'eager' : 'lazy'}">
+      <div class="gallery-slide-overlay"><i class="fas fa-search-plus"></i></div>
     `;
-    div.addEventListener('click', () => openLightbox(item.src, item.alt));
-    grid.appendChild(div);
+    slide.addEventListener('click', () => {
+      if (!galleryState.isDragging) openLightbox(item.src, item.alt, i);
+    });
+    track.appendChild(slide);
   });
+
+  // Build dots
+  if (dotsWrap) {
+    dotsWrap.innerHTML = '';
+    items.forEach((_, i) => {
+      const dot = el('button', 'gallery-dot' + (i === 0 ? ' active' : ''));
+      dot.setAttribute('aria-label', `Şəkil ${i + 1}`);
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  updateGalleryUI();
+
+  // Arrow buttons
+  if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); stopAutoPlay(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); stopAutoPlay(); });
+
+  // Touch / swipe support
+  const wrap = $('#gallery-slider-wrap');
+  if (wrap) {
+    wrap.addEventListener('touchstart', e => {
+      galleryState.touchStartX = e.touches[0].clientX;
+      galleryState.touchStartY = e.touches[0].clientY;
+      galleryState.isDragging = false;
+    }, { passive: true });
+
+    wrap.addEventListener('touchmove', e => {
+      const dx = e.touches[0].clientX - galleryState.touchStartX;
+      const dy = e.touches[0].clientY - galleryState.touchStartY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) {
+        galleryState.isDragging = true;
+      }
+    }, { passive: true });
+
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - galleryState.touchStartX;
+      if (galleryState.isDragging && Math.abs(dx) > 40) {
+        if (dx < 0) nextSlide(); else prevSlide();
+        stopAutoPlay();
+      }
+      setTimeout(() => { galleryState.isDragging = false; }, 50);
+    }, { passive: true });
+
+    // Mouse drag
+    wrap.addEventListener('mousedown', e => {
+      galleryState.dragStartX = e.clientX;
+      galleryState.isDragging = false;
+    });
+    wrap.addEventListener('mousemove', e => {
+      if (e.buttons !== 1) return;
+      if (Math.abs(e.clientX - galleryState.dragStartX) > 8) galleryState.isDragging = true;
+    });
+    wrap.addEventListener('mouseup', e => {
+      const dx = e.clientX - galleryState.dragStartX;
+      if (galleryState.isDragging && Math.abs(dx) > 40) {
+        if (dx < 0) nextSlide(); else prevSlide();
+        stopAutoPlay();
+      }
+      setTimeout(() => { galleryState.isDragging = false; }, 50);
+    });
+  }
+
+  // Keyboard navigation when gallery is visible
+  document.addEventListener('keydown', e => {
+    if (state.currentPage !== 'qalerya') return;
+    if (e.key === 'ArrowLeft') { prevSlide(); stopAutoPlay(); }
+    if (e.key === 'ArrowRight') { nextSlide(); stopAutoPlay(); }
+  });
+
+  startAutoPlay();
 }
 
-function openLightbox(src, alt) {
+function goToSlide(index) {
+  const n = galleryState.total;
+  if (n === 0) return;
+  galleryState.current = ((index % n) + n) % n;
+  updateGalleryUI();
+}
+
+function nextSlide() {
+  goToSlide(galleryState.current + 1);
+}
+
+function prevSlide() {
+  goToSlide(galleryState.current - 1);
+}
+
+function updateGalleryUI() {
+  const track = $('#gallery-slider-track');
+  const counter = $('#gallery-counter');
+  const n = galleryState.total;
+  const cur = galleryState.current;
+
+  if (track) track.style.transform = `translateX(-${cur * 100}%)`;
+
+  // Update dots
+  $$('.gallery-dot').forEach((dot, i) => {
+    dot.classList.toggle('active', i === cur);
+  });
+
+  // Update counter
+  if (counter && n > 0) counter.textContent = `${cur + 1} / ${n}`;
+}
+
+function startAutoPlay() {
+  stopAutoPlay();
+  if (galleryState.total > 1) {
+    galleryState.autoTimer = setInterval(() => {
+      if (state.currentPage === 'qalerya') nextSlide();
+    }, 4000);
+  }
+}
+
+function stopAutoPlay() {
+  if (galleryState.autoTimer) {
+    clearInterval(galleryState.autoTimer);
+    galleryState.autoTimer = null;
+  }
+}
+
+function openLightbox(src, alt, index) {
   const lb = $('#lightbox');
   $('#lightbox-img').src = src;
-  $('#lightbox-img').alt = alt;
+  $('#lightbox-img').alt = alt || '';
+  if (index !== undefined) lb.dataset.galleryIndex = index;
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -704,6 +868,11 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFAQ();
   renderVacancies();
 
+  // Hazirlilar page - smart back button
+  initHazirlilarBackBtn();
+  // Muellimler page - smart back button
+  initMuellimlerBackBtn();
+
   // Navbar
   initNavbar();
 
@@ -747,3 +916,75 @@ document.addEventListener('DOMContentLoaded', () => {
     if (h && document.getElementById(`page-${h}`)) navigateTo(h, false);
   });
 });
+
+/* ============================================================
+   HAZIRLILAR - Smart Back Button
+   Hazirlilar page: Geri btn state managed via setHazirlilarBack()
+   ============================================================ */
+function initHazirlilarBackBtn() {
+  // Initial state: on root categories, Geri is disabled
+  setHazirlilarBack(null);
+}
+
+/**
+ * Call this whenever hazirlilar view changes.
+ * @param {Function|null} fn - click handler, or null to disable
+ */
+function setHazirlilarBack(fn) {
+  const btn = document.getElementById('hazirlilar-back-btn');
+  if (!btn) return;
+  if (fn === null) {
+    btn.style.opacity = '0.4';
+    btn.style.pointerEvents = 'none';
+    btn.onclick = null;
+  } else {
+    btn.style.opacity = '';
+    btn.style.pointerEvents = '';
+    btn.onclick = fn;
+  }
+}
+
+/* ============================================================
+   MUELLIMLER - Smart Back Button
+   ============================================================ */
+function initMuellimlerBackBtn() {
+  const btn = document.getElementById('muellimler-back-btn');
+  if (!btn) return;
+
+  // Default: Geri = go back (if teacher detail open, go back to grid)
+  btn.innerHTML = '<i class="fas fa-arrow-left"></i> Geri';
+  btn.onclick = () => {
+    const detail = document.getElementById('teacher-detail-view');
+    const gridWrap = document.getElementById('all-teachers-grid-wrap');
+    if (detail && detail.style.display !== 'none' && detail.innerHTML !== '') {
+      // Close teacher detail, restore grid
+      detail.innerHTML = '';
+      detail.style.display = 'none';
+      gridWrap.style.display = '';
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: state.teacherScrollY, behavior: 'instant' });
+      });
+    } else {
+      // Already on grid - Geri = go to home
+      navigateTo('home', true);
+    }
+  };
+
+  // Update button state when teacher detail changes
+  const observer = new MutationObserver(() => {
+    const detail = document.getElementById('teacher-detail-view');
+    if (detail && detail.style.display !== 'none' && detail.innerHTML !== '') {
+      btn.style.opacity = '';
+      btn.style.pointerEvents = '';
+    } else {
+      btn.style.opacity = '0.5';
+      btn.style.pointerEvents = 'none';
+    }
+  });
+  const detail = document.getElementById('teacher-detail-view');
+  if (detail) observer.observe(detail, { attributes: true, childList: true, subtree: false });
+
+  // Initial state - on grid, so dim Geri
+  btn.style.opacity = '0.5';
+  btn.style.pointerEvents = 'none';
+}

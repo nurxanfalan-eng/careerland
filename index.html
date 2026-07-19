@@ -230,9 +230,12 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
-          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
-            <i class="fas fa-arrow-left"></i> Ana səhifə
+        <div id="hazirlilar-nav-btns" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <button class="page-back-btn" id="hazirlilar-back-btn" aria-label="Geri">
+            <i class="fas fa-arrow-left"></i> Geri
+          </button>
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt" style="background:var(--primary);color:var(--white);">
+            <i class="fas fa-home"></i> Ana səhifə
           </button>
         </div>
         <h1 class="section-title"><i class="fas fa-graduation-cap"></i> Hazırlıqlar</h1>
@@ -256,9 +259,12 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
-        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
-          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
-            <i class="fas fa-arrow-left"></i> Ana səhifə
+        <div id="muellimler-nav-btns" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <button class="page-back-btn" id="muellimler-back-btn" aria-label="Geri">
+            <i class="fas fa-arrow-left"></i> Geri
+          </button>
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt" style="background:var(--primary);color:var(--white);">
+            <i class="fas fa-home"></i> Ana səhifə
           </button>
         </div>
         <h1 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Müəllimlər</h1>
@@ -314,7 +320,18 @@
         <h1 class="section-title"><i class="fas fa-images"></i> Qalerya</h1>
         <p class="section-subtitle">Mərkəzimizin görüntüləri</p>
       </header>
-      <div id="gallery-grid" class="gallery-grid"></div>
+      <!-- Gallery Slider -->
+      <div class="gallery-slider-wrap" id="gallery-slider-wrap">
+        <div class="gallery-slider-track" id="gallery-slider-track"></div>
+        <button class="gallery-nav-btn gallery-nav-prev" id="gallery-prev" aria-label="Ənəki şəkil">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="gallery-nav-btn gallery-nav-next" id="gallery-next" aria-label="Növbəti şəkil">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="gallery-dots" id="gallery-dots"></div>
+      <div class="gallery-counter" id="gallery-counter"></div>
     </div>
   </section>
 </div>
@@ -543,39 +560,7 @@
 </div>
 
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer role="contentinfo">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">
-        <img src="images/logo.png" alt="Careerland Loqosu" loading="lazy">
-        <span>CAREER<span class="accent">LAND</span></span>
-      </div>
-      <p>Peşəkar müəllimlər ilə yüksək nəticələr əldə et. Gələcəyini bu gündən qur!</p>
-      <div class="footer-socials">
-        <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="WhatsApp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="https://www.instagram.com/careerland/" target="_blank" rel="noopener noreferrer" class="footer-social" aria-label="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="tel:+994559406018" class="footer-social" aria-label="Zəng et">
-          <i class="fas fa-phone"></i>
-        </a>
-      </div>
-    </div>
 
-  </div>
-
-  <div class="footer-bottom">
-    <span>© 2024 Careerland Təhsil Mərkəzi. Bütün hüquqlar qorunur.</span>
-    <span>
-      <a href="https://wa.me/994559406018" target="_blank" rel="noopener noreferrer">+994 55 940 60 18</a>
-    </span>
-  </div>
-</footer>
 
 
 <!-- ============================================================
