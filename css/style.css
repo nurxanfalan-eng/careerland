@@ -146,15 +146,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ============================================================
    HERO SECTION
    ============================================================ */
-#page-home { display: none; }
+/* Home page: no extra padding - hero handles it internally */
+#page-home { display: none; padding-top: 0; }
 #page-home.active { display: block; }
 
 .hero {
   background: linear-gradient(135deg, #0d1b2a 0%, #1a2e45 60%, #0d1b2a 100%);
-  min-height: calc(100vh - 72px);
+  min-height: 100vh;
   display: flex; align-items: center;
   position: relative; overflow: hidden;
-  padding: 60px 0 40px;
+  /* Top padding = navbar height (72px) + extra breathing room */
+  padding: 96px 0 60px;
 }
 .hero::before {
   content: ''; position: absolute; inset: 0;
@@ -719,7 +721,8 @@ footer {
   .navbar-links { display: none; }
   .navbar-hamburger { display: flex; }
   .section { padding: 50px 0; }
-  .hero { padding: 40px 0 30px; }
+  /* Hero: navbar is ~60px on mobile + small top padding */
+  .hero { padding: 80px 0 40px; min-height: 100vh; }
   .teacher-detail-header { flex-direction: column; padding: 24px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
   .prep-sub-grid { grid-template-columns: repeat(2, 1fr); }

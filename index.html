@@ -348,6 +348,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title"><i class="fas fa-newspaper"></i> Xəbərlər</h1>
         <p class="section-subtitle">Mərkəzimizdən ən son yeniliklər</p>
       </header>
@@ -363,6 +368,11 @@
 <div id="page-haqqimizda" class="page">
   <section class="section">
     <div class="container">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+        <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+          <i class="fas fa-arrow-left"></i> Ana səhifə
+        </button>
+      </div>
       <div class="about-grid">
         <div class="about-logo">
           <img src="images/logo.png" alt="Careerland Loqosu" loading="lazy">
@@ -398,29 +408,6 @@
     </div>
   </section>
 
-  <!-- Stats section -->
-  <section class="section section-alt">
-    <div class="container">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;text-align:center">
-        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
-          <div style="font-size:2.5rem;font-weight:900;color:var(--accent);margin-bottom:8px">500+</div>
-          <div style="color:var(--gray-600);font-size:.9rem">Uğurlu Məzun</div>
-        </div>
-        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
-          <div style="font-size:2.5rem;font-weight:900;color:var(--purple);margin-bottom:8px">12+</div>
-          <div style="color:var(--gray-600);font-size:.9rem">Peşəkar Müəllim</div>
-        </div>
-        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
-          <div style="font-size:2.5rem;font-weight:900;color:var(--green);margin-bottom:8px">7+</div>
-          <div style="color:var(--gray-600);font-size:.9rem">Kurs növü</div>
-        </div>
-        <div style="padding:32px 20px;background:var(--white);border-radius:var(--radius-lg);box-shadow:var(--shadow)">
-          <div style="font-size:2.5rem;font-weight:900;color:var(--orange);margin-bottom:8px">100%</div>
-          <div style="color:var(--gray-600);font-size:.9rem">Məmnuniyyət</div>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 
 
@@ -431,6 +418,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header" style="text-align:center">
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title" style="justify-content:center"><i class="fas fa-question-circle"></i> Tez-Tez Soruşulan Suallar</h1>
         <p class="section-subtitle">Sizin suallarınıza cavab tapın</p>
       </header>
@@ -447,6 +439,11 @@
   <section class="section">
     <div class="container">
       <header class="section-header" style="margin-bottom:40px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+          <button class="page-back-btn" data-page="home" aria-label="Ana səhifəyə qayıt">
+            <i class="fas fa-arrow-left"></i> Ana səhifə
+          </button>
+        </div>
         <h1 class="section-title"><i class="fas fa-envelope"></i> Əlaqə</h1>
         <p class="section-subtitle">Bizimlə əlaqə saxlayın</p>
       </header>
@@ -645,42 +642,7 @@
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
 
-<!-- Sync home news grid with news page grid -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const homeGrid = document.getElementById('news-grid-home');
-  if (homeGrid) {
-    NEWS.forEach(item => {
-      const card = document.createElement('article');
-      card.className = 'news-card';
-      const colorMap = { purple: '#7c3aed', green: '#16a34a', orange: '#ea580c' };
-      card.innerHTML = `
-        <div class="news-card-visual ${item.colorClass}">
-          <span class="news-icon">${item.icon}</span>
-        </div>
-        <div class="news-card-body">
-          <div class="news-card-date"><i class="far fa-calendar-alt"></i>${item.date}</div>
-          <h3 class="news-card-title">${item.title}</h3>
-          <p class="news-card-text">${item.shortText}</p>
-          <span class="news-card-link">Daha ətraflı <i class="fas fa-arrow-right"></i></span>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        const overlay = document.getElementById('news-overlay');
-        const color = colorMap[item.colorClass] || '#7c3aed';
-        document.getElementById('overlay-icon').textContent = item.icon;
-        document.getElementById('overlay-icon').style.background = color;
-        document.getElementById('overlay-title').textContent = item.title;
-        document.getElementById('overlay-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
-        document.getElementById('overlay-body').textContent = item.fullText;
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      });
-      homeGrid.appendChild(card);
-    });
-  }
-});
-</script>
+
 
 </body>
 </html>

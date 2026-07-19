@@ -17,6 +17,7 @@ const state = {
   prepBreadcrumb: [],   // [{id, name, type}] – navigation trail
   lastScrollY: {},      // Scroll positions per page
   teacherScrollY: 0,    // Müəllim grid scroll position before detail view
+  prepScrollY: 0,       // Prep page scroll before going into sub-detail
 };
 
 /* ============================================================
@@ -34,7 +35,7 @@ const el = (tag, cls = '', html = '') => {
 /* ============================================================
    NAVIGATION
    ============================================================ */
-function navigateTo(pageId) {
+function navigateTo(pageId, restoreScroll) {
   // Save scroll position for current page
   state.lastScrollY[state.currentPage] = window.scrollY;
 
@@ -51,14 +52,23 @@ function navigateTo(pageId) {
   });
   // Close mobile menu
   $('#mobile-menu').classList.remove('open');
-  // Scroll to top immediately (no smooth) to prevent scroll-to-bottom bug
-  window.scrollTo({ top: 0, behavior: 'instant' });
   // Update URL hash (no reload)
   history.pushState(null, '', `#${pageId}`);
+
+  // Scroll behaviour
+  if (restoreScroll && state.lastScrollY[pageId] != null) {
+    // Restore scroll position after a short delay to allow render
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: state.lastScrollY[pageId], behavior: 'instant' });
+    });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 }
 
 /* ============================================================
    PAGE BACK BUTTONS (ana səhifəyə qayıt)
+   Restore scroll position to where user was before navigating away
    ============================================================ */
 function initPageBackButtons() {
   document.addEventListener('click', e => {
@@ -66,7 +76,8 @@ function initPageBackButtons() {
     if (btn) {
       e.preventDefault();
       const page = btn.dataset.page || 'home';
-      navigateTo(page);
+      // Go back to page and RESTORE scroll position
+      navigateTo(page, true);
     }
   });
 }
@@ -88,12 +99,12 @@ function initNavbar() {
     $('#hamburger-btn').setAttribute('aria-expanded', isOpen);
   });
 
-  // Nav links
+  // Nav links - regular page navigation (no scroll restore for top-level nav)
   document.addEventListener('click', e => {
     const link = e.target.closest('[data-page]');
     if (link && !link.classList.contains('page-back-btn')) {
       e.preventDefault();
-      navigateTo(link.dataset.page);
+      navigateTo(link.dataset.page, false);
     }
   });
 
@@ -128,6 +139,7 @@ function renderNews() {
   if (!grid) return;
   grid.innerHTML = '';
 
+  // Show ALL news on the dedicated news page
   NEWS.forEach(item => {
     const card = el('article', 'news-card');
     card.innerHTML = `
@@ -260,8 +272,9 @@ function renderPrepCategories() {
       <div class="prep-category-arrow"><i class="fas fa-chevron-right"></i></div>
     `;
     card.addEventListener('click', () => {
+      // Save scroll position before navigating deeper
+      state.prepScrollY = window.scrollY;
       state.prepBreadcrumb = [{ id: cat.id, name: cat.name, type: 'category' }];
-      // Scroll to top immediately before rendering
       window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepSubCategories(cat);
     });
@@ -276,11 +289,13 @@ function renderPrepSubCategories(cat) {
 
   updateBreadcrumb();
 
-  // Back button
+  // Back button - goes back to categories and RESTORES scroll position
   const back = makeBackBtn(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     renderPrepCategories();
-  });
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: state.prepScrollY, behavior: 'instant' });
+    });
+  }, 'Geri');
   container.appendChild(back);
 
   // Title
@@ -320,17 +335,19 @@ function renderPrepTeachers(sub, parentCat) {
 
   updateBreadcrumb();
 
-  // Back
+  // Back - goes to subcategories
   const back = makeBackBtn(() => {
     if (state.prepBreadcrumb.length > 1) {
       state.prepBreadcrumb.pop();
       window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepSubCategories(parentCat);
     } else {
-      window.scrollTo({ top: 0, behavior: 'instant' });
       renderPrepCategories();
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: state.prepScrollY, behavior: 'instant' });
+      });
     }
-  });
+  }, 'Geri');
   container.appendChild(back);
 
   const title = el('h2', 'section-title', `${sub.icon} ${sub.name} – Müəllimlər`);
@@ -346,25 +363,32 @@ function renderPrepTeachers(sub, parentCat) {
 
   const grid = el('div', 'teachers-grid');
   teachers.forEach(t => {
+    // Save scroll before going to teacher detail
+    let savedScrollY = 0;
     grid.appendChild(makeTeacherCard(t, () => {
+      savedScrollY = window.scrollY;
       window.scrollTo({ top: 0, behavior: 'instant' });
-      renderPrepTeacherDetail(t, sub, parentCat);
+      renderPrepTeacherDetail(t, sub, parentCat, savedScrollY);
     }));
   });
   container.appendChild(grid);
 }
 
-function renderPrepTeacherDetail(teacher, sub, parentCat) {
+function renderPrepTeacherDetail(teacher, sub, parentCat, returnScrollY) {
   const container = $('#prep-main');
   container.innerHTML = '';
 
   updateBreadcrumb();
 
+  // Back button - only "Geri" (not "Ana səhifəyə qayıt")
   const back = makeBackBtn(() => {
     state.prepBreadcrumb.pop();
-    window.scrollTo({ top: 0, behavior: 'instant' });
     renderPrepTeachers(sub, parentCat);
-  });
+    // Restore scroll position to where user was in teacher list
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: returnScrollY || 0, behavior: 'instant' });
+    });
+  }, 'Geri');
   container.appendChild(back);
 
   container.appendChild(makeTeacherDetail(teacher));
@@ -463,8 +487,10 @@ function updateBreadcrumb() {
   home.style.cursor = 'pointer';
   home.style.color = 'var(--purple)';
   home.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     renderPrepCategories();
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: state.prepScrollY, behavior: 'instant' });
+    });
   });
   bc.appendChild(home);
 
@@ -482,7 +508,8 @@ function updateBreadcrumb() {
 
 /* ============================================================
    ALL TEACHERS PAGE
-   Fix: karta basanda scroll olmur, çıxışda həmin yerdə qalmaq
+   - No auto scroll when opening teacher detail
+   - Restore scroll position when going back
    ============================================================ */
 function renderAllTeachers() {
   const grid = $('#all-teachers-grid');
@@ -494,29 +521,29 @@ function renderAllTeachers() {
       // Save current scroll position before showing detail
       state.teacherScrollY = window.scrollY;
 
-      // Show teacher detail inline - NO scroll to top
       const detail = $('#teacher-detail-view');
       const gridWrap = $('#all-teachers-grid-wrap');
       detail.innerHTML = '';
 
+      // Back button - only "Geri"
       const back = makeBackBtn(() => {
         detail.innerHTML = '';
         detail.style.display = 'none';
         gridWrap.style.display = '';
-        // Restore scroll position after hiding detail
+        // Restore scroll position after hiding detail - no auto scroll
         requestAnimationFrame(() => {
           window.scrollTo({ top: state.teacherScrollY, behavior: 'instant' });
         });
-      });
+      }, 'Geri');
       detail.appendChild(back);
       detail.appendChild(makeTeacherDetail(t));
       detail.style.display = 'block';
       gridWrap.style.display = 'none';
-      // Scroll to detail header smoothly
-      requestAnimationFrame(() => {
-        const detailTop = detail.getBoundingClientRect().top + window.scrollY - 90;
-        window.scrollTo({ top: Math.max(0, detailTop), behavior: 'smooth' });
-      });
+
+      // NO automatic scroll - just go to top of page naturally
+      // The page is already at the right position since we saved scroll
+      // We only scroll to ensure the detail is visible (not the whole card position)
+      window.scrollTo({ top: 0, behavior: 'instant' });
     });
     grid.appendChild(card);
   });
@@ -615,11 +642,52 @@ function renderFAQ() {
 /* ============================================================
    UTILITY
    ============================================================ */
-function makeBackBtn(onClick) {
+function makeBackBtn(onClick, label) {
   const btn = el('button', 'back-btn');
-  btn.innerHTML = `<i class="fas fa-arrow-left"></i> Geri`;
+  btn.innerHTML = `<i class="fas fa-arrow-left"></i> ${label || 'Geri'}`;
   btn.addEventListener('click', onClick);
   return btn;
+}
+
+/* ============================================================
+   HOME NEWS GRID - max 3 items
+   ============================================================ */
+function renderHomeNews() {
+  const homeGrid = document.getElementById('news-grid-home');
+  if (!homeGrid) return;
+  homeGrid.innerHTML = '';
+
+  // Show only first 3 news items on home page
+  const homeNewsItems = NEWS.slice(0, 3);
+  const colorMap = { purple: '#7c3aed', green: '#16a34a', orange: '#ea580c' };
+
+  homeNewsItems.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    card.innerHTML = `
+      <div class="news-card-visual ${item.colorClass}">
+        <span class="news-icon">${item.icon}</span>
+      </div>
+      <div class="news-card-body">
+        <div class="news-card-date"><i class="far fa-calendar-alt"></i>${item.date}</div>
+        <h3 class="news-card-title">${item.title}</h3>
+        <p class="news-card-text">${item.shortText}</p>
+        <span class="news-card-link">Daha ətraflı <i class="fas fa-arrow-right"></i></span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      const overlay = document.getElementById('news-overlay');
+      const color = colorMap[item.colorClass] || '#7c3aed';
+      document.getElementById('overlay-icon').textContent = item.icon;
+      document.getElementById('overlay-icon').style.background = color;
+      document.getElementById('overlay-title').textContent = item.title;
+      document.getElementById('overlay-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+      document.getElementById('overlay-body').textContent = item.fullText;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    homeGrid.appendChild(card);
+  });
 }
 
 /* ============================================================
@@ -628,6 +696,7 @@ function makeBackBtn(onClick) {
 document.addEventListener('DOMContentLoaded', () => {
   // Render all sections
   renderNews();
+  renderHomeNews();
   renderPrepCategories();
   renderAllTeachers();
   renderGraduates();
@@ -667,14 +736,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle initial hash
   const hash = location.hash.replace('#', '');
   if (hash && document.getElementById(`page-${hash}`)) {
-    navigateTo(hash);
+    navigateTo(hash, false);
   } else {
-    navigateTo('home');
+    navigateTo('home', false);
   }
 
   // Browser back/forward
   window.addEventListener('popstate', () => {
     const h = location.hash.replace('#', '');
-    if (h && document.getElementById(`page-${h}`)) navigateTo(h);
+    if (h && document.getElementById(`page-${h}`)) navigateTo(h, false);
   });
 });
