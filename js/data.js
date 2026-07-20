@@ -566,14 +566,14 @@ const GRADUATES = [
   {
     id: "grad-1",
     name: "Nuray Nəbiyeva",
-    score: "DİM BALINA HÖRMƏT ELƏMİR",
-    photo: "images/nuray.jpg"
+    score: "690",
+    photo: null
   },
   {
     id: "grad-2",
-    name: "Nurxan Nurxanovic",
-    score: "fokus mokus",
-    photo: "images/nurxan.jpg"
+    name: "Vüsal Əliyev",
+    score: "400",
+    photo: null
   },
   {
     id: "grad-3",
